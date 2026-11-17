@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FR33 — Your security. Your rules.</title>
+<meta name="description" content="FR33 is the open-source, self-hosted security operations hub. Concept mockup.">
+<meta name="theme-color" content="#06070c">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+.hero .wrap{display:grid;gap:40px;align-items:center}
+@media(min-width:980px){.hero .wrap{grid-template-columns:1.05fr 1fr}}
+.live{padding:0}
+.live .rows{padding:6px 8px 10px;min-height:292px}
+.arow{display:grid;grid-template-columns:10px 1fr auto;gap:12px;align-items:center;padding:11px 12px;border-radius:12px;font-size:.86rem;animation:slide .6s var(--ease) both}
+.arow:nth-child(odd){background:rgba(255,255,255,.035)}
+.arow b{font-weight:600;display:block;line-height:1.25}.arow small{color:var(--dim);font-size:.74rem}
+@keyframes slide{from{opacity:0;transform:translateY(-14px) scale(.98)}}
+.counter{display:flex;gap:18px;padding:12px 16px;border-top:1px solid var(--line);font-size:.78rem;color:var(--mute)}
+.counter b{color:#fff;font:700 1.05rem var(--disp);margin-right:5px}
+
+/* tour */
+.tour{display:grid;gap:22px;margin-top:38px}
+@media(min-width:980px){.tour{grid-template-columns:340px 1fr;align-items:start}}
+.steps{display:grid;gap:10px}
+.step{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:38px 1fr;gap:14px;padding:16px;border-radius:18px;border:1px solid var(--line);background:var(--glass);transition:all .35s var(--ease)}
+.step:hover{background:var(--glass2)}
+.step:focus-visible{outline:2px solid #fff}
+.step .n{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;font:700 .95rem var(--disp);background:rgba(255,255,255,.08);color:var(--mute);transition:all .35s}
+.step b{display:block;font:600 1.02rem var(--disp)}
+.step span{display:block;color:var(--mute);font-size:.86rem;margin-top:2px;max-height:0;opacity:0;overflow:hidden;transition:all .4s var(--ease)}
+.step[aria-selected=true]{border-color:color-mix(in srgb,var(--acc) 60%,transparent);background:color-mix(in srgb,var(--acc) 9%,rgba(255,255,255,.04));box-shadow:0 0 40px -14px var(--acc)}
+.step[aria-selected=true] .n{background:var(--acc);color:#06070c}
+.step[aria-selected=true] span{max-height:90px;opacity:1}
+.tbar{display:flex;gap:10px;align-items:center;margin-top:6px}
+.tbar .grow{flex:1;height:4px;border-radius:4px;background:rgba(255,255,255,.1);overflow:hidden}
+.tbar .grow i{display:block;height:100%;width:20%;background:var(--grad);transition:width .5s var(--ease)}
+.stage{min-height:480px}
+.pane{padding:20px;animation:paneIn .55s var(--ease) both}
+@keyframes paneIn{from{opacity:0;transform:translateY(14px)}}
+.pane h4{margin:0 0 4px;font:600 1.15rem var(--disp)}
+.pane p.d{margin:0 0 14px;color:var(--mute);font-size:.88rem}
+.inbox{display:grid;gap:8px}
+.irow{display:grid;grid-template-columns:auto 1fr auto auto;gap:12px;align-items:center;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.04);font-size:.88rem}
+.irow b{font-weight:600}.irow small{display:block;color:var(--dim);font-size:.74rem}
+.irow.sel{border-color:color-mix(in srgb,var(--acc) 55%,transparent);background:color-mix(in srgb,var(--acc) 9%,transparent)}
+.src{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.ev{position:relative;margin:6px 0 0 8px;padding-left:22px;border-left:2px solid rgba(255,255,255,.12)}
+.ev li{list-style:none;position:relative;padding:0 0 14px;font-size:.88rem}
+.ev li::before{content:"";position:absolute;left:-29px;top:6px;width:12px;height:12px;border-radius:50%;background:#06070c;border:2px solid var(--acc)}
+.ev small{display:block;color:var(--dim);font-family:var(--mono);font-size:.72rem;margin-top:2px}
+.cite{color:var(--acc);font-family:var(--mono);font-size:.72rem;text-decoration:none;border-bottom:1px dashed}
+.verdict{margin-top:12px;padding:14px 16px;border-radius:14px;background:color-mix(in srgb,var(--acc) 9%,transparent);border:1px solid color-mix(in srgb,var(--acc) 35%,transparent);font-size:.9rem}
+.act{display:flex;gap:12px;align-items:center;padding:14px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.04);margin-bottom:10px}
+.act .t{flex:1;font-size:.9rem}.act .t small{display:block;color:var(--dim);font-size:.76rem}
+.sw{all:unset;cursor:pointer;width:46px;height:28px;border-radius:20px;background:rgba(255,255,255,.14);position:relative;transition:background .3s}
+.sw::after{content:"";position:absolute;left:3px;top:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform .3s var(--ease)}
+.sw[aria-checked=true]{background:var(--acc)}.sw[aria-checked=true]::after{transform:translateX(18px)}
+.sw:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.decide{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;align-items:center}
+.chain{display:grid;gap:0}
+.blk{display:grid;grid-template-columns:28px 1fr auto;gap:12px;align-items:center;padding:12px 4px;font-size:.84rem;border-bottom:1px dashed rgba(255,255,255,.1);animation:slide .5s var(--ease) both}
+.blk code{font-family:var(--mono);color:var(--dim);font-size:.72rem}
+.tree{font-family:var(--mono);font-size:.82rem;line-height:1.9;color:#cfe3ff;background:rgba(0,0,0,.28);border-radius:14px;padding:16px 18px;border:1px solid var(--line)}
+.tree .k{color:var(--g)}.tree .m{color:var(--dim)}.tree .p{color:var(--p)}
+.tl-end{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+
+/* ownership strip */
+.own{display:grid;gap:14px;margin-top:34px}
+@media(min-width:900px){.own{grid-template-columns:repeat(3,1fr)}}
+.own .glass{padding:26px}
+.cx{display:grid;gap:16px;margin-top:34px}
+@media(min-width:1000px){.cx{grid-template-columns:.9fr 1.1fr;align-items:stretch}}
+.cxl{padding:22px;display:flex;flex-direction:column;gap:14px}
+.cxl textarea{width:100%;resize:vertical;background:rgba(0,0,0,.32);border:1px solid var(--line);border-radius:14px;padding:14px;color:#cfe3ff;font:400 .8rem/1.6 var(--mono);outline:0}
+.cxl textarea:focus{border-color:var(--acc)}
+.cxl .chips{display:flex;flex-wrap:wrap;gap:8px}
+.pill{all:unset;cursor:pointer;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--glass);font:500 .82rem var(--body);color:#d6deef;transition:all .3s var(--ease)}
+.pill:hover{background:var(--glass2);transform:translateY(-2px)}.pill:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.cxo{padding:18px;min-height:340px;font-size:.88rem}
+.empty2{min-height:300px;display:grid;place-items:center;color:var(--dim)}
+.cxo .ck{display:flex;gap:10px;align-items:center;padding:5px 0;color:var(--mute);animation:slide .4s var(--ease) both}
+.cxo .ck i{color:var(--g);font-style:normal}
+.cxo pre{margin:12px 0 0;padding:14px;border-radius:14px;background:rgba(0,0,0,.32);border:1px solid var(--line);font:400 .76rem/1.7 var(--mono);color:#cfe3ff;white-space:pre-wrap;word-break:break-word;animation:paneIn .5s both}
+.uses{display:flex;flex-wrap:wrap;gap:8px;margin-top:44px}
+.uses .pill[aria-selected=true]{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 16%,transparent)}
+.uout{margin-top:12px;padding:18px 22px;display:grid;gap:8px;font-size:.92rem}
+.uout div{display:flex;gap:12px;align-items:flex-start;animation:slide .4s var(--ease) both}
+.uout .chip{flex:none;margin-top:2px}
+.dialrow{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:26px}
+.seg{display:inline-flex;padding:4px;border-radius:999px;border:1px solid var(--line);background:var(--glass)}
+.seg button{all:unset;cursor:pointer;padding:9px 18px;border-radius:999px;font:600 .84rem var(--body);color:var(--mute);transition:all .3s}
+.seg button[aria-checked=true]{background:var(--grad);color:#06070c}
+.seg button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.dialtxt{margin:14px 0 0;color:#d3dcef;max-width:70ch;min-height:3em}
+.ag{padding:20px;display:flex;flex-direction:column;gap:10px}
+.ag h3{margin:0;font:600 1.1rem var(--disp)}.ag p{margin:0;color:var(--mute);font-size:.88rem}
+.ag .fn{font:400 .72rem var(--mono);color:var(--dim)}
+.ag .st{margin-top:auto;display:flex;gap:8px;align-items:center}
+.cmp{margin-top:30px;padding:6px 8px}
+.cmp .r{display:grid;grid-template-columns:1.1fr 1.2fr 1.2fr;gap:14px;padding:15px 16px;border-bottom:1px solid rgba(255,255,255,.08);font-size:.92rem;align-items:center}
+.cmp .r:last-child{border:0}
+.cmp .h{font:600 .74rem var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.cmp .r span:first-child{font-weight:600}
+.cmp .r span:nth-child(2){color:var(--mute)}
+.cmp .us{color:#fff;font-weight:600;position:relative}
+.cmp .r:not(.h) .us::before{content:"✓ ";color:var(--g)}
+.cmp .h .us{color:var(--acc)}
+@media(max-width:700px){.cmp .r{grid-template-columns:1fr;gap:4px}.cmp .h{display:none}}
+.pv{margin-top:30px;padding:10px 12px}
+.pe{display:grid;grid-template-columns:30px 1fr auto;gap:12px;align-items:center;padding:12px 8px;border-bottom:1px dashed rgba(255,255,255,.1);font-size:.88rem;transition:background .3s}
+.pe code{font:400 .72rem var(--mono);color:var(--dim)}
+.pe.bad{background:rgba(255,107,107,.1)}.pe.bad code{color:#ff8f8f}
+.pe.after{background:rgba(255,107,107,.05);opacity:.75}
+.pvb{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:14px 8px 6px}
+.qh,.qr{display:grid;grid-template-columns:1.6fr .7fr .9fr .8fr auto;gap:12px;align-items:center;padding:12px 16px;font-size:.88rem}
+.qh{font:600 .7rem var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--dim);border-bottom:1px solid var(--line)}
+.qr{border-bottom:1px solid rgba(255,255,255,.06)}.qr b{font-weight:600}.qr small{display:block;color:var(--dim);font-size:.72rem}
+.qr .t{font:600 .86rem var(--mono)}.qr .t.low{color:#ff8f8f}
+@media(max-width:700px){.qh{display:none}.qr{grid-template-columns:1fr 1fr}}
+.ob{display:grid;gap:16px;margin-top:30px}
+@media(min-width:1000px){.ob{grid-template-columns:1fr 1fr;align-items:start}}
+.obl{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.obl li{display:grid;grid-template-columns:36px 1fr auto;gap:14px;align-items:center;padding:14px 16px;border-radius:16px;border:1px solid var(--line);background:var(--glass);transition:all .4s var(--ease)}
+.obl li .n{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:rgba(255,255,255,.08);font:700 .9rem var(--disp)}
+.obl li[data-d=true]{border-color:color-mix(in srgb,var(--g) 50%,transparent);background:color-mix(in srgb,var(--g) 8%,transparent)}
+.obl li[data-d=true] .n{background:var(--g);color:#06070c}
+.obl li b{display:block;font:600 .98rem var(--disp)}.obl li small{color:var(--dim);font-size:.8rem}
+.obf{padding:22px}
+.obh{display:flex;gap:12px;align-items:center}
+.grow2{flex:1;height:6px;border-radius:6px;background:rgba(255,255,255,.1);overflow:hidden}.grow2 i{display:block;height:100%;width:0;background:var(--grad);transition:width .5s var(--ease)}
+.m2{margin-top:16px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,.07);border:1px solid var(--line);font-size:.92rem;min-height:4.5em}
+.own big{display:block;font:700 2.4rem/1 var(--disp);margin-bottom:8px}
+.own p{margin:0;color:var(--mute);font-size:.95rem}
+</style>
+</head>
+<body class="fr33">
+<div class="aurora" aria-hidden="true"></div><div class="progress" aria-hidden="true"></div>
+<nav class="nav" aria-label="Product pages">
+  <a class="brand" href="https://tootenramen.github.io/FR33/">FR33</a>
+  <a class="l" href="https://tootenramen.github.io/FR33/" aria-current="page">Hub</a>
+  <a class="l" href="https://tootenramen.github.io/POWER/">POWER</a>
+  <a class="l" href="https://tootenramen.github.io/FAST/">FAST</a>
+</nav>
+
+<header class="hero"><div class="wrap">
+  <div>
+    <span class="eyebrow"><i></i> Open source · self-hosted · yours</span>
+    <h1>Your security.<br><span class="gw">Your rules.</span></h1>
+    <p class="lede">FR33 is the security operations hub you actually own. Every alert from every tool lands in one calm place, gets investigated with receipts, and waits for <em>you</em> to make the call.</p>
+    <div class="cta">
+      <a class="btn pri" href="#tour">Take the 60-second tour ↓</a>
+      <a class="btn" href="https://tootenramen.github.io/POWER/">Meet POWER →</a>
+    </div>
+    <p class="note">Concept mockup · all data on this page is simulated.</p>
+  </div>
+  <div class="win tilt live rv" aria-label="Live inbox preview">
+    <div class="win-bar"><i></i><i></i><i></i><span>FR33 · Inbox</span></div>
+    <div class="rows" id="liveRows" aria-live="off"></div>
+    <div class="counter"><span><b id="cIn">0</b>alerts in</span><span><b id="cAuto">0</b>resolved by FR33</span><span><b id="cYou">0</b>waiting for you</span></div>
+  </div>
+</div></header>
+
+<section class="sec" id="tour"><div class="wrap">
+  <p class="kicker">Guided tour</p>
+  <h2>From noise to <span class="gw">decision</span> in five steps</h2>
+  <p class="sub">Click through, or press play. This is the whole loop: ingest, investigate, decide, prove, own.</p>
+  <div class="tour">
+    <div>
+      <div class="steps" id="steps" role="tablist" aria-label="Tour steps"></div>
+      <div class="tbar"><button class="btn sm" id="prev" aria-label="Previous step">←</button><div class="grow"><i id="bar"></i></div><button class="btn sm" id="next" aria-label="Next step">→</button><button class="btn sm pri" id="play">▶ Play</button></div>
+    </div>
+    <div class="win stage" id="stage" role="tabpanel" aria-live="polite"><div class="win-bar"><i></i><i></i><i></i><span id="wtitle">FR33</span></div><div id="pane"></div></div>
+  </div>
+</div></section>
+
+<section class="sec"><div class="wrap">
+  <p class="kicker">What you get</p>
+  <h2>Everything on the <span class="gw">table</span>. Nothing locked away.</h2>
+  <div class="grid">
+    <div class="glass spot feat rv"><div class="ic">⚡</div><h3>One door for every alert</h3><p>A universal listener takes whatever your tools send. No connector waiting list. If it can send a webhook, it can talk to FR33.</p></div>
+    <div class="glass spot feat rv" style="--d:.06s"><div class="ic">🔎</div><h3>Investigations with receipts</h3><p>Every conclusion cites the exact event it came from. Click a citation and you land on the raw evidence.</p></div>
+    <div class="glass spot feat rv" style="--d:.12s"><div class="ic">🧑‍⚖️</div><h3>You make the call</h3><p>FR33 proposes. You approve. AI output can never trigger a response action without a human in between.</p></div>
+    <div class="glass spot feat rv" style="--d:.18s"><div class="ic">🔗</div><h3>An audit trail you can verify</h3><p>Every step is hash-chained. Anyone can recompute it and find the first edit, deletion or reorder.</p></div>
+    <div class="glass spot feat rv" style="--d:.24s"><div class="ic">📁</div><h3>Plain files, real git</h3><p>Workflows, rules and packs are readable files in a repo you control. Diff them. Fork them. Review them like code.</p></div>
+    <div class="glass spot feat rv" style="--d:.3s"><div class="ic">🏠</div><h3>Runs where you say</h3><p>Laptop, rack or private cloud. One small process, no phone-home, models run locally. Your data never has to leave.</p></div>
+  </div>
+  <div class="own">
+    <div class="glass rv"><big class="gw">0</big><p>things you have to ask a vendor for permission to change.</p></div>
+    <div class="glass rv" style="--d:.08s"><big class="gw">100%</big><p>of your workflows exported as readable files, any time, one click.</p></div>
+    <div class="glass rv" style="--d:.16s"><big class="gw">1</big><p>owner of the show: whoever runs it. That's you.</p></div>
+  </div>
+</div></section>
+
+<section class="sec" id="connect"><div class="wrap">
+  <p class="kicker">Breadth, your way</p>
+  <h2>Every API is a <span class="gw">connector</span>. In minutes.</h2>
+  <p class="sub">A catalog is a head start, not a ceiling. Point FR33 at any tool's API docs or a single example call and POWER writes the connector, tests it against a mock, and hands it to you as a file. No waiting for anyone to add your tool.</p>
+  <div class="cx">
+    <div class="glass cxl">
+      <label for="cxin" class="kicker" style="margin:0">Paste a call, or pick a tool</label>
+      <textarea id="cxin" rows="4" spellcheck="false"></textarea>
+      <div class="chips" id="cxch"></div>
+      <button class="btn pri" id="cxgo">Generate connector ✦</button>
+    </div>
+    <div class="win"><div class="win-bar"><i></i><i></i><i></i><span id="cxt">POWER · connector</span></div>
+      <div class="cxo" id="cxo"><div class="empty2">Your connector will appear here.</div></div></div>
+  </div>
+  <div class="uses" id="uses" role="tablist" aria-label="Teams"></div>
+  <div class="glass uout" id="uout" aria-live="polite"></div>
+</div></section>
+
+<section class="sec" id="agents"><div class="wrap">
+  <p class="kicker">Agents you own</p>
+  <h2>Autonomy is a <span class="gw">dial you hold</span>.</h2>
+  <p class="sub">Every agent is a readable file in your repo. Fork it, edit it, delete it. You choose how much rope it gets, and the engine enforces your choice.</p>
+  <div class="dialrow"><span class="chip">Autonomy</span><div class="seg" id="seg" role="radiogroup" aria-label="Autonomy"></div></div>
+  <p class="dialtxt" id="dialtxt" aria-live="polite"></p>
+  <div class="grid" id="agrid"></div>
+</div></section>
+
+<section class="sec" id="prove"><div class="wrap">
+  <p class="kicker">Guardrails you can verify</p>
+  <h2>Don't trust it. <span class="gw">Check it.</span></h2>
+  <p class="sub">Anyone can promise guardrails. FR33's audit log is a hash chain you can recompute yourself. Edit any entry below and watch the chain tell on you. (Demo hash, computed live in your browser.)</p>
+  <div class="glass pv"><div id="pchain"></div>
+    <div class="pvb"><button class="btn sm" id="ptamper">✎ Tamper with entry 3</button><button class="btn sm" id="pfix">Restore</button><span class="chip g" id="pstat">✓ Chain verified</span></div></div>
+</div></section>
+
+<section class="sec" id="soc"><div class="wrap">
+  <p class="kicker">Built for a real SOC</p>
+  <h2>Cases, queues and <span class="gw">clocks</span>.</h2>
+  <p class="sub">One case system for every alert source: assignment, escalation and live SLA timers, with the evidence and the audit trail attached to each case.</p>
+  <div class="win" style="margin-top:30px"><div class="win-bar"><i></i><i></i><i></i><span>FR33 · Case queue</span></div>
+    <div class="qh"><span>Case</span><span>Severity</span><span>Owner</span><span>SLA</span><span></span></div><div id="queue"></div></div>
+</div></section>
+
+<section class="sec" id="switch"><div class="wrap">
+  <p class="kicker">Switch in an afternoon</p>
+  <h2>Onboarding that <span class="gw">sits next to you</span>.</h2>
+  <p class="sub">No implementation project. FAST walks you through, step by step, and you can bring what you already have: sources, workflows, and the Microsoft tools your team lives in.</p>
+  <div class="ob">
+    <ol class="obl" id="obl"></ol>
+    <div class="glass obf"><div class="obh"><span class="chip" id="obp">0 of 5</span><div class="grow2"><i id="obb"></i></div></div>
+      <div class="m2" id="obm">FAST: Ready when you are. I'll be right here for every step.</div>
+      <div class="chips" style="margin-top:14px"><span class="chip c">Microsoft 365</span><span class="chip c">Entra ID</span><span class="chip c">Defender</span><span class="chip c">Sentinel</span><span class="chip c">+ anything with an API</span></div></div>
+  </div>
+</div></section>
+
+<section class="sec" id="own"><div class="wrap">
+  <p class="kicker">Own it or rent it</p>
+  <h2>Same job. <span class="gw">Different deal.</span></h2>
+  <div class="glass cmp rv" role="table" aria-label="Typical hosted platform compared with FR33">
+    <div class="r h" role="row"><span role="columnheader"></span><span role="columnheader">Typical hosted platform</span><span role="columnheader" class="us">FR33</span></div>
+    <div class="r" role="row"><span role="rowheader">Where it runs</span><span>Their cloud</span><span class="us">Wherever you decide</span></div>
+    <div class="r" role="row"><span role="rowheader">Who can change it</span><span>Their roadmap, your support ticket</span><span class="us">You. It's your code.</span></div>
+    <div class="r" role="row"><span role="rowheader">Workflows are</span><span>Items inside their editor</span><span class="us">Plain files in your git</span></div>
+    <div class="r" role="row"><span role="rowheader">A tool they don't support</span><span>Request it, or hack around it</span><span class="us">POWER writes the connector</span></div>
+    <div class="r" role="row"><span role="rowheader">AI model</span><span>Whatever they chose</span><span class="us">A model you host, or none</span></div>
+    <div class="r" role="row"><span role="rowheader">AI can act alone?</span><span>Depends on settings</span><span class="us">Never. Engine rule.</span></div>
+    <div class="r" role="row"><span role="rowheader">Pricing model</span><span>Often metered by usage</span><span class="us">Open source. No meter.</span></div>
+  </div>
+  <p class="note">The left column describes hosted automation platforms in general, not any single product. Concept mockup.</p>
+</div></section>
+
+<footer class="foot"><div class="wrap">
+  <p class="kicker">Keep going</p><h2>Now <span class="gw">build</span> something.</h2>
+  <div class="row">
+    <a class="glass spot" href="https://tootenramen.github.io/POWER/"><b>POWER →</b><span>Tell it what you want. Watch it get built.</span></a>
+    <a class="glass spot" href="https://tootenramen.github.io/FAST/"><b>FAST →</b><span>The coworker who's always there.</span></a>
+  </div>
+  <p class="legal">FR33 · POWER · FAST — concept mockups. Simulated data. Not a shipped product.</p>
+</div></footer>
+
+<script src="shared.js"></script>
+<script>
+(function(){
+  /* ---------- live inbox ---------- */
+  var feed=[['r','Impossible-travel sign-in','Identity provider · maria.s'],['a','Mass file download','Cloud storage · dev-laptop-14'],['g','Known-good scanner hit','Network sensor · 10.2.4.9'],['r','Credential phish reported','Email gateway · 6 recipients'],['a','New admin role granted','Cloud audit · svc-deploy'],['g','Signed update flagged','Endpoint agent · build-07'],['r','Beaconing to rare domain','DNS logs · fin-ws-22'],['g','Failed login burst (lockout ok)','Identity provider · 41 attempts']];
+  var rows=document.getElementById('liveRows'),i=0,cIn=0,cA=0,cY=0;
+  function tick(){
+    var f=feed[i++%feed.length],auto=f[0]==='g';
+    var r=FR.el('<div class="arow"><span class="dot '+f[0]+'"></span><div><b>'+f[1]+'</b><small>'+f[2]+'</small></div>'+(auto?'<span class="chip g">Resolved</span>':'<span class="chip '+(f[0]==='r'?'r':'a')+'">Needs you</span>')+'</div>');
+    rows.insertBefore(r,rows.firstChild); while(rows.children.length>5)rows.removeChild(rows.lastChild);
+    cIn++; auto?cA++:cY++;
+    document.getElementById('cIn').textContent=cIn;document.getElementById('cAuto').textContent=cA;document.getElementById('cYou').textContent=cY;
+  }
+  tick();tick();tick();setInterval(tick,2600);
+
+  /* ---------- tour ---------- */
+  var S=[
+   {t:'Everything lands here',d:'Identity, endpoint, email, cloud. One universal listener, one inbox.',w:'FR33 · Inbox'},
+   {t:'FR33 investigates',d:'It pulls context, correlates events and cites every claim.',w:'FR33 · Case 0142'},
+   {t:'You decide',d:'Responses are proposals. Nothing runs until a human approves.',w:'FR33 · Approval'},
+   {t:'Proof, not promises',d:'Every step is written to a hash-chained audit log you can verify.',w:'FR33 · Audit'},
+   {t:'It is yours',d:'Plain files in a git repo you control. Export, fork, change anything.',w:'FR33 · Workspace'}
+  ];
+  var cur=0,approved={a:true,b:true},decided=false,timer=null;
+  var stepsEl=document.getElementById('steps'),pane=document.getElementById('pane');
+  S.forEach(function(s,k){
+    var b=document.createElement('button');b.className='step';b.setAttribute('role','tab');
+    b.innerHTML='<div class="n">'+(k+1)+'</div><div><b>'+s.t+'</b><span>'+s.d+'</span></div>';
+    b.onclick=function(){go(k,true)};stepsEl.appendChild(b);
+  });
+  var V=[
+   function(){return '<div class="pane"><h4>Inbox</h4><p class="d">Every source, normalized. Routine noise is closed for you. The rest is ranked.</p>'+
+     '<div class="src"><span class="chip c">Identity</span><span class="chip c">Endpoint</span><span class="chip c">Email</span><span class="chip c">Cloud audit</span><span class="chip c">Network</span><span class="chip v">+ any webhook</span></div>'+
+     '<div class="inbox"><div class="irow sel"><span class="dot r"></span><div><b>Impossible-travel sign-in · maria.s</b><small>Identity provider · 2 min ago</small></div><span class="chip r">High</span><span class="chip">Open</span></div>'+
+     '<div class="irow"><span class="dot a"></span><div><b>Mass file download · dev-laptop-14</b><small>Cloud storage · 9 min ago</small></div><span class="chip a">Medium</span><span class="chip">Open</span></div>'+
+     '<div class="irow"><span class="dot g"></span><div><b>Known-good scanner hit</b><small>Network sensor · 11 min ago</small></div><span class="chip g">Auto-closed</span><span class="chip">Done</span></div>'+
+     '<div class="irow"><span class="dot g"></span><div><b>Failed login burst (lockout worked)</b><small>Identity provider · 14 min ago</small></div><span class="chip g">Auto-closed</span><span class="chip">Done</span></div></div></div>'},
+   function(){return '<div class="pane"><h4>Impossible-travel sign-in · maria.s</h4><p class="d">Investigated in 4 seconds. Every line below points at its evidence.</p>'+
+     '<ul class="ev"><li>Sign-in from Little Rock, AR at 09:02 <a class="cite" href="#" onclick="return false">[evt-3381]</a><small>identity provider · password + push</small></li>'+
+     '<li>Sign-in from Lagos, NG at 09:11, no MFA push <a class="cite" href="#" onclick="return false">[evt-3390]</a><small>identity provider · legacy protocol</small></li>'+
+     '<li>New inbox rule created forwarding to external address <a class="cite" href="#" onclick="return false">[evt-3402]</a><small>email gateway · 09:13</small></li>'+
+     '<li>Lagos IP seen against 3 other accounts this week <a class="cite" href="#" onclick="return false">[evt-3055 +2]</a><small>correlation · 7-day window</small></li></ul>'+
+     '<div class="verdict"><b>Assessment: likely account takeover.</b> Confidence high. Four independent signals agree. FR33 drafted a response for you to review.</div></div>'},
+   function(){return '<div class="pane"><h4>Proposed response</h4><p class="d">Toggle what you want. FR33 never acts on its own.</p>'+
+     '<div class="act"><div class="t">Revoke active sessions for maria.s<small>Reversible · identity provider</small></div><button class="sw" role="switch" aria-checked="'+approved.a+'" data-k="a" aria-label="Revoke sessions"></button></div>'+
+     '<div class="act"><div class="t">Remove external forwarding rule<small>Reversible · email gateway</small></div><button class="sw" role="switch" aria-checked="'+approved.b+'" data-k="b" aria-label="Remove forwarding rule"></button></div>'+
+     '<div class="act"><div class="t">Notify maria.s and her manager<small>Message preview ready</small></div><span class="chip">Optional</span></div>'+
+     '<div class="decide"><button class="btn pri sm" id="ok">'+(decided?'✓ Approved':'Approve selected')+'</button><button class="btn sm" id="edit">Edit as file</button><span class="chip '+(decided?'g':'a')+'" id="st">'+(decided?'Executed · logged':'Waiting for you')+'</span></div></div>'},
+   function(){return '<div class="pane"><h4>Audit chain</h4><p class="d">Each entry commits to the one before it. Change one, and everything after breaks.</p><div class="chain" id="chain"></div><div class="verdict" style="margin-top:14px"><span class="chip g">✓ Chain verified</span> &nbsp;7 entries · recomputed in your browser, no server needed.</div></div>'},
+   function(){return '<div class="pane"><h4>Your workspace</h4><p class="d">This is the whole product, as folders. You can read all of it.</p>'+
+     '<div class="tree"><span class="m">fr33/</span><br>├─ <span class="k">workflows/</span><br>│&nbsp;&nbsp;├─ account-takeover.yaml<br>│&nbsp;&nbsp;└─ phish-triage.yaml<br>├─ <span class="k">packs/</span> <span class="m">&nbsp;# connectors, as files</span><br>├─ <span class="k">audit/</span> <span class="m">&nbsp;# hash-chained log</span><br>└─ <span class="p">.git</span> <span class="m">&nbsp;# yours. review, revert, fork</span></div>'+
+     '<div class="tl-end"><span class="chip g">Self-hosted</span><span class="chip g">Open source</span><span class="chip g">Local models</span><span class="chip g">No phone-home</span></div></div>'}
+  ];
+  function chain(){
+    var items=[['Alert ingested','a41f'],['Investigation started','7be2'],['4 evidence links attached','c09d'],['Response proposed','52aa'],['Approved by you','e3f1'],['Sessions revoked','9d60'],['Case closed','1b7c']];
+    var el=document.getElementById('chain');
+    items.forEach(function(it,k){setTimeout(function(){el.appendChild(FR.el('<div class="blk"><span class="dot g"></span><span>'+it[0]+'</span><code>…'+it[1]+' ← …'+(k?items[k-1][1]:'0000')+'</code></div>'))},k*170)});
+  }
+  function render(){
+    pane.innerHTML=V[cur]();
+    document.getElementById('wtitle').textContent=S[cur].w;
+    [].forEach.call(stepsEl.children,function(b,k){b.setAttribute('aria-selected',k===cur)});
+    document.getElementById('bar').style.width=((cur+1)/S.length*100)+'%';
+    if(cur===3)chain();
+    if(cur===2){
+      [].forEach.call(pane.querySelectorAll('.sw'),function(s){s.onclick=function(){var k=s.dataset.k;approved[k]=!approved[k];s.setAttribute('aria-checked',approved[k])}});
+      document.getElementById('ok').onclick=function(){decided=true;this.textContent='✓ Approved';var st=document.getElementById('st');st.className='chip g';st.textContent='Executed · logged';stop()};
+      document.getElementById('edit').onclick=function(){go(4,true)};
+    }
+  }
+  function go(k,manual){cur=(k+S.length)%S.length;if(manual)stop();render()}
+  function stop(){if(timer){clearInterval(timer);timer=null;document.getElementById('play').textContent='▶ Play'}}
+  document.getElementById('prev').onclick=function(){go(cur-1,true)};
+  document.getElementById('next').onclick=function(){go(cur+1,true)};
+  document.getElementById('play').onclick=function(){
+    if(timer){stop();return}
+    this.textContent='❚❚ Pause';timer=setInterval(function(){go(cur+1)},4200);
+  };
+  render();
+})();
+</script>
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  /* connector generator (simulated) */
+  var EX={
+    hr:{n:'HR system',call:"curl https://api.acme-hr.example/v1/employees/{id} \\\n  -H 'Authorization: Bearer $TOKEN'",id:'acme-hr',auth:'bearer token',eps:['get_employee','list_terminations','get_manager'],use:'Look up an employee and their manager during an incident'},
+    fw:{n:'On-prem firewall',call:"curl -k -X POST https://fw01.corp.example/api/blocklist \\\n  -u admin:$PASS -d '{\"ip\":\"1.2.3.4\"}'",id:'corp-firewall',auth:'basic auth (stored sealed)',eps:['block_ip','unblock_ip','list_blocked'],use:'Block or unblock an address, with an undo'},
+    tk:{n:'Ticketing',call:"curl https://desk.acme.example/rest/api/issues \\\n  -H 'X-Api-Key: $KEY' -d '{\"title\":\"...\"}'",id:'acme-desk',auth:'API key header',eps:['create_issue','add_comment','close_issue'],use:'Open, update and close tickets from a workflow'}
+  };
+  var cxin=$('cxin'),cur='hr';
+  function setEx(k){cur=k;cxin.value=EX[k].call;[].forEach.call($('cxch').children,function(b){b.style.borderColor=b.dataset.k===k?'var(--acc)':''})}
+  Object.keys(EX).forEach(function(k){var b=document.createElement('button');b.type='button';b.className='pill';b.dataset.k=k;b.textContent=EX[k].n;b.onclick=function(){setEx(k)};$('cxch').appendChild(b)});
+  setEx('hr');
+  var cTok=0;
+  $('cxgo').onclick=async function(){
+    var my=++cTok,e=EX[cur],o=$('cxo');o.innerHTML='';$('cxt').textContent='POWER · writing connector…';this.disabled=true;
+    var steps=['Read the example call','Found '+e.eps.length+' actions: '+e.eps.join(', '),'Auth detected: '+e.auth,'Wrote the connector file','Wrote a mock server and a test for each action','All '+e.eps.length+' tests pass against the mock'];
+    for(var i=0;i<steps.length;i++){await FR.sleep(480);if(my!==cTok)return;o.appendChild(FR.el('<div class="ck"><i>✓</i> '+steps[i]+'</div>'))}
+    await FR.sleep(300);
+    o.appendChild(FR.el('<pre>'+['# packs/'+e.id+'.yaml · generated, yours to edit','name: '+e.id,'auth: '+e.auth+'  # secret stays sealed, never in the file','actions:'].concat(e.eps.map(function(a){return '  - '+a})).concat(['verified: false  # flips only after YOU run it against the real service']).join('\n')+'</pre>'));
+    $('cxt').textContent='POWER · packs/'+e.id+'.yaml';this.disabled=false;
+  };
+  /* teams */
+  var U={'SecOps':[['Alert','Phishing reported','Pull it from every inbox, open a case'],['Alert','Ransomware behaviour','Isolate the host, page on-call']],'CloudOps':[['Event','Storage bucket made public','Close it, tell the owner, ticket it'],['Event','Idle expensive instance','Ask the owner, stop it on a yes']],'IAM':[['Event','New admin role granted','Check against the request, revoke if none'],['Schedule','Quarterly access review','Send each manager their list, chase the late ones']],'Vulns':[['Schedule','Every Monday','Rank exploited criticals, ticket the owners']],'Compliance':[['Schedule','Every night','Collect evidence from each system into one dated folder'],['Event','Policy drift','Open a finding with the proof attached']]};
+  var ub=$('uses');
+  function showU(k){[].forEach.call(ub.children,function(b){b.setAttribute('aria-selected',b.dataset.k===k)});var o=$('uout');o.innerHTML='';U[k].forEach(function(r,i){var e=FR.el('<div style="animation-delay:'+i*.08+'s"><span class="chip c">'+r[0]+'</span><span><b>'+r[1]+'</b> → '+r[2]+'</span></div>');o.appendChild(e)})}
+  Object.keys(U).forEach(function(k){var b=document.createElement('button');b.type='button';b.className='pill';b.dataset.k=k;b.setAttribute('role','tab');b.textContent=k;b.onclick=function(){showU(k)};ub.appendChild(b)});
+  showU('SecOps');
+  /* agents + dial */
+  var L=[['Suggest','Agents only recommend. Every action waits for you. Best while you build trust.'],['Ask first','Agents run read-only work alone (looking things up). Anything that changes a system asks you first.'],['Auto for reversible','Agents may do reversible, low-risk actions alone and log them. Anything that changes a system in a bigger way still asks. AI output can never reach an action without a human approval step, at every level.']];
+  var lv=1,seg=$('seg');
+  L.forEach(function(l,i){var b=document.createElement('button');b.type='button';b.setAttribute('role','radio');b.textContent=l[0];b.onclick=function(){lv=i;paint()};seg.appendChild(b)});
+  var AG=[['Triage','Reads every new alert, groups duplicates, ranks what matters.',0,'agents/triage.yaml'],['Enrich','Looks up reputation, owner and history for each indicator.',0,'agents/enrich.yaml'],['Hunter','Searches past events for the same pattern you just confirmed.',0,'agents/hunter.yaml'],['Responder','Proposes containment steps. Anything that changes a system always asks you.',2,'agents/responder.yaml'],['Evidence','Collects compliance proof from each system on a schedule.',0,'agents/evidence.yaml'],['Nudger','Chases owners for overdue fixes, politely, in your team chat.',1,'agents/nudger.yaml']];
+  var ag=$('agrid');
+  AG.forEach(function(a){ag.appendChild(FR.el('<div class="glass spot ag"><h3>'+a[0]+'</h3><p>'+a[1]+'</p><span class="fn">'+a[3]+'</span><div class="st"><span class="chip" data-r="'+a[2]+'"></span></div></div>'))});
+  function paint(){
+    [].forEach.call(seg.children,function(b,i){b.setAttribute('aria-checked',i===lv)});
+    $('dialtxt').textContent=L[lv][1];
+    [].forEach.call(document.querySelectorAll('.ag .chip'),function(c){
+      var risk=+c.dataset.r,alone=(risk===0&&lv>=1)||(risk===1&&lv>=2),
+          need=lv===0?'suggests only':alone?(risk===0?'runs alone (read-only)':'runs alone, logged'):'asks first';
+      c.className='chip '+(need.indexOf('alone')>-1?'g':'a');c.textContent=need;
+    });
+  }
+  paint();
+})();
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  /* tamper-evident chain: FNV-1a demo hash, recomputed live */
+  function h(s){var x=0x811c9dc5;for(var i=0;i<s.length;i++){x^=s.charCodeAt(i);x=Math.imul(x,0x01000193)>>>0}return ('00000000'+x.toString(16)).slice(-8)}
+  var orig=['Alert ingested','Investigation started','Response proposed','Approved by you','Sessions revoked','Case closed'];
+  var ent=[],tampered=false;
+  function build(){
+    ent=orig.map(function(t,i){return {t:t,h:null}});
+    if(tampered)ent[2].t='Response proposed (nothing to see here)';
+  }
+  function stored(){var prev='00000000',o=[];orig.forEach(function(t){prev=h(prev+t);o.push(prev)});return o}
+  function paint(){
+    build();var st=stored(),prev='00000000',broke=-1,el=$('pchain');el.innerHTML='';
+    ent.forEach(function(e,i){
+      var calc=h(prev+e.t);prev=calc;var bad=calc!==st[i];if(bad&&broke<0)broke=i;
+      el.appendChild(FR.el('<div class="pe'+(i===broke?' bad':broke>=0&&i>broke?' after':'')+'"><span class="dot '+(broke>=0&&i>=broke?'r':'g')+'"></span><span>'+(i+1)+'. '+e.t.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</span><code>stored …'+st[i]+' · recomputed …'+calc+'</code></div>'));
+    });
+    var s=$('pstat');
+    if(broke>=0){s.className='chip r';s.textContent='✕ Broken at entry '+(broke+1)+': everything after it is now suspect'}
+    else{s.className='chip g';s.textContent='✓ Chain verified'}
+  }
+  $('ptamper').onclick=function(){tampered=true;paint()};
+  $('pfix').onclick=function(){tampered=false;paint()};
+  paint();
+  /* case queue with live SLA */
+  var C=[['Impossible-travel sign-in','maria.s','r','High',1380],['Mass file download','dev-laptop-14','a','Medium',5400],['Credential phish (6 recipients)','mail gateway','r','High',900],['New admin role granted','svc-deploy','a','Medium',7200],['Beaconing to rare domain','fin-ws-22','r','High',2400]];
+  var q=$('queue');
+  C.forEach(function(c,i){c.o=null;
+    var r=FR.el('<div class="qr"><div><b>'+c[0]+'</b><small>'+c[1]+'</small></div><span class="chip '+c[2]+'">'+c[3]+'</span><span class="own-t">Unassigned</span><span class="t"></span><span><button class="btn sm" type="button">Assign to me</button></span></div>');
+    var btn=r.querySelector('button'),own=r.querySelector('.own-t');
+    btn.onclick=function(){if(!c.o){c.o='You';own.textContent='You';btn.textContent='Escalate'}else{own.textContent='Tier 2 · on-call';btn.disabled=true;btn.textContent='Escalated ✓'}};
+    c.t=r.querySelector('.t');q.appendChild(r);
+  });
+  function f(s){var m=Math.floor(s/60),x=s%60;return ('0'+Math.floor(m/60)).slice(-2)+':'+('0'+(m%60)).slice(-2)+':'+('0'+x).slice(-2)}
+  setInterval(function(){C.forEach(function(c){c[4]=Math.max(0,c[4]-1);c.t.textContent=f(c[4]);c.t.className='t'+(c[4]<1000?' low':'')})},1000);
+  C.forEach(function(c){c.t.textContent=f(c[4])});
+  /* onboarding */
+  var OB=[['Connect your first source','Paste one webhook URL into your identity provider.','Source connected. Alerts are already arriving. Nothing to install on any endpoint.'],['Bring a workflow you already have','Import it, or describe it to POWER.','Imported. POWER rewrote it as a readable file and flagged two steps that need a connector. It offered to generate them.'],['Dry-run it','Test on sample events. Nothing real is touched.','Dry-run passed. I explained each step in plain words so you know what it does.'],['Invite a teammate','Roles: viewer, analyst, admin.','Invited. They get the same walk-through, from the start.'],['Go live','Approve it and you\'re running.','You\'re live. It\'s your files, in your repo, on your machine. I\'ll stay around.']];
+  var done=0,ol=$('obl');
+  OB.forEach(function(s,i){
+    var li=FR.el('<li data-d="false"><span class="n">'+(i+1)+'</span><div><b>'+s[0]+'</b><small>'+s[1]+'</small></div><button class="btn sm" type="button">Do it</button></li>');
+    li.querySelector('button').onclick=function(){
+      if(li.dataset.d==='true')return;li.dataset.d='true';this.textContent='✓';this.disabled=true;done++;
+      $('obp').textContent=done+' of 5';$('obb').style.width=(done/5*100)+'%';$('obm').textContent='FAST: '+s[2];
+    };ol.appendChild(li);
+  });
+})();
+</script>
+</body>
+</html>
