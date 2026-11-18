@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="shared.css">
 <style>
 .hero .wrap{display:grid;gap:40px;align-items:center}
+.hero{padding:clamp(84px,11vh,110px) 0 clamp(24px,4vw,40px)}.sec{padding:clamp(34px,4.5vw,56px) 0}.sec h2{margin-bottom:10px}.sec .sub{margin-top:6px}.foot{padding-top:clamp(30px,4vw,48px)}
 @media(min-width:980px){.hero .wrap{grid-template-columns:1.05fr 1fr}}
 .live{padding:0}
 .live .rows{padding:6px 8px 10px;min-height:292px}
@@ -149,7 +150,7 @@
   <div>
     <span class="eyebrow"><i></i> Open source · self-hosted · yours</span>
     <h1>Your security.<br><span class="gw">Your rules.</span></h1>
-    <p class="lede">FR33 is the security operations hub you actually own. Every alert from every tool lands in one calm place, gets investigated with receipts, and waits for <em>you</em> to make the call.</p>
+    <p class="lede">One calm inbox for every alert. Investigated with receipts. <em>You</em> make the call.</p>
     <div class="cta">
       <a class="btn pri" href="#tour">Take the 60-second tour ↓</a>
       <a class="btn" href="https://tootenramen.github.io/POWER/">Meet POWER →</a>
@@ -166,7 +167,7 @@
 <section class="sec" id="tour"><div class="wrap">
   <p class="kicker">Guided tour</p>
   <h2>From noise to <span class="gw">decision</span> in five steps</h2>
-  <p class="sub">Click through, or press play. This is the whole loop: ingest, investigate, decide, prove, own.</p>
+  
   <div class="tour">
     <div>
       <div class="steps" id="steps" role="tablist" aria-label="Tour steps"></div>
@@ -178,26 +179,16 @@
 
 <section class="sec"><div class="wrap">
   <p class="kicker">What you get</p>
-  <h2>Everything on the <span class="gw">table</span>. Nothing locked away.</h2>
-  <div class="grid">
-    <div class="glass spot feat rv"><div class="ic">⚡</div><h3>One door for every alert</h3><p>A universal listener takes whatever your tools send. No connector waiting list. If it can send a webhook, it can talk to FR33.</p></div>
-    <div class="glass spot feat rv" style="--d:.06s"><div class="ic">🔎</div><h3>Investigations with receipts</h3><p>Every conclusion cites the exact event it came from. Click a citation and you land on the raw evidence.</p></div>
-    <div class="glass spot feat rv" style="--d:.12s"><div class="ic">🧑‍⚖️</div><h3>You make the call</h3><p>FR33 proposes. You approve. AI output can never trigger a response action without a human in between.</p></div>
-    <div class="glass spot feat rv" style="--d:.18s"><div class="ic">🔗</div><h3>An audit trail you can verify</h3><p>Every step is hash-chained. Anyone can recompute it and find the first edit, deletion or reorder.</p></div>
-    <div class="glass spot feat rv" style="--d:.24s"><div class="ic">📁</div><h3>Plain files, real git</h3><p>Workflows, rules and packs are readable files in a repo you control. Diff them. Fork them. Review them like code.</p></div>
-    <div class="glass spot feat rv" style="--d:.3s"><div class="ic">🏠</div><h3>Runs where you say</h3><p>Laptop, rack or private cloud. One small process, no phone-home, models run locally. Your data never has to leave.</p></div>
-  </div>
-  <div class="own">
-    <div class="glass rv"><big class="gw">0</big><p>things you have to ask a vendor for permission to change.</p></div>
-    <div class="glass rv" style="--d:.08s"><big class="gw">100%</big><p>of your workflows exported as readable files, any time, one click.</p></div>
-    <div class="glass rv" style="--d:.16s"><big class="gw">1</big><p>owner of the show: whoever runs it. That's you.</p></div>
+  <h2>Yours. <span class="gw">All of it.</span></h2>
+  <div class="chips" style="justify-content:center;gap:12px;margin-top:26px">
+    <span class="chip c" style="font-size:16px;padding:10px 16px">⚡ Any webhook in</span><span class="chip c" style="font-size:16px;padding:10px 16px">🔎 Every claim cited</span><span class="chip c" style="font-size:16px;padding:10px 16px">🧑‍⚖️ A human approves</span><span class="chip c" style="font-size:16px;padding:10px 16px">🔗 Verifiable audit chain</span><span class="chip c" style="font-size:16px;padding:10px 16px">📁 Plain files, real git</span><span class="chip c" style="font-size:16px;padding:10px 16px">🏠 Runs on your hardware</span>
   </div>
 </div></section>
 
 <section class="sec" id="connect"><div class="wrap">
   <p class="kicker">Breadth, your way</p>
   <h2>Every API is a <span class="gw">connector</span>. In minutes.</h2>
-  <p class="sub">A catalog is a head start, not a ceiling. Point FR33 at any tool's API docs or a single example call and POWER writes the connector, tests it against a mock, and hands it to you as a file. No waiting for anyone to add your tool.</p>
+  <p class="sub">Paste one API call. POWER writes it, tests it, hands you the file.</p>
   <div class="cx">
     <div class="glass cxl">
       <label for="cxin" class="kicker" style="margin:0">Paste a call, or pick a tool</label>
@@ -215,7 +206,7 @@
 <section class="sec" id="agents"><div class="wrap">
   <p class="kicker">Agents you own</p>
   <h2>Autonomy is a <span class="gw">dial you hold</span>.</h2>
-  <p class="sub">Every agent is a readable file in your repo. Fork it, edit it, delete it. You choose how much rope it gets, and the engine enforces your choice.</p>
+  <p class="sub">Every agent is a file. You set how much rope it gets.</p>
   <div class="dialrow"><span class="chip">Autonomy</span><div class="seg" id="seg" role="radiogroup" aria-label="Autonomy"></div></div>
   <p class="dialtxt" id="dialtxt" aria-live="polite"></p>
   <div class="grid" id="agrid"></div>
@@ -224,7 +215,7 @@
 <section class="sec" id="prove"><div class="wrap">
   <p class="kicker">Guardrails you can verify</p>
   <h2>Don't trust it. <span class="gw">Check it.</span></h2>
-  <p class="sub">Anyone can promise guardrails. FR33's audit log is a hash chain you can recompute yourself. Edit any entry below and watch the chain tell on you. (Demo hash, computed live in your browser.)</p>
+  <p class="sub">Edit any entry. Watch the chain tell on you.</p>
   <div class="glass pv"><div id="pchain"></div>
     <div class="pvb"><button class="btn sm" id="ptamper">✎ Tamper with entry 3</button><button class="btn sm" id="pfix">Restore</button><span class="chip g" id="pstat">✓ Chain verified</span></div></div>
 </div></section>
@@ -232,7 +223,7 @@
 <section class="sec" id="soc"><div class="wrap">
   <p class="kicker">Built for a real SOC</p>
   <h2>Cases, queues and <span class="gw">clocks</span>.</h2>
-  <p class="sub">One case system for every alert source: assignment, escalation and live SLA timers, with the evidence and the audit trail attached to each case.</p>
+  <p class="sub">One queue. Live SLA clocks.</p>
   <div class="win" style="margin-top:30px"><div class="win-bar"><i></i><i></i><i></i><span>FR33 · Case queue</span></div>
     <div class="qh"><span>Case</span><span>Severity</span><span>Owner</span><span>SLA</span><span></span></div><div id="queue"></div></div>
 </div></section>
@@ -240,7 +231,7 @@
 <section class="sec" id="switch"><div class="wrap">
   <p class="kicker">Switch in an afternoon</p>
   <h2>Onboarding that <span class="gw">sits next to you</span>.</h2>
-  <p class="sub">No implementation project. FAST walks you through, step by step, and you can bring what you already have: sources, workflows, and the Microsoft tools your team lives in.</p>
+  <p class="sub">FAST walks you through. Bring what you have.</p>
   <div class="ob">
     <ol class="obl" id="obl"></ol>
     <div class="glass obf"><div class="obh"><span class="chip" id="obp">0 of 5</span><div class="grow2"><i id="obb"></i></div></div>
@@ -256,9 +247,7 @@
     <div class="r h" role="row"><span role="columnheader"></span><span role="columnheader">Typical hosted platform</span><span role="columnheader" class="us">FR33</span></div>
     <div class="r" role="row"><span role="rowheader">Where it runs</span><span>Their cloud</span><span class="us">Wherever you decide</span></div>
     <div class="r" role="row"><span role="rowheader">Who can change it</span><span>Their roadmap, your support ticket</span><span class="us">You. It's your code.</span></div>
-    <div class="r" role="row"><span role="rowheader">Workflows are</span><span>Items inside their editor</span><span class="us">Plain files in your git</span></div>
     <div class="r" role="row"><span role="rowheader">A tool they don't support</span><span>Request it, or hack around it</span><span class="us">POWER writes the connector</span></div>
-    <div class="r" role="row"><span role="rowheader">AI model</span><span>Whatever they chose</span><span class="us">A model you host, or none</span></div>
     <div class="r" role="row"><span role="rowheader">AI can act alone?</span><span>Depends on settings</span><span class="us">Never. Engine rule.</span></div>
     <div class="r" role="row"><span role="rowheader">Pricing model</span><span>Often metered by usage</span><span class="us">Open source. No meter.</span></div>
   </div>
